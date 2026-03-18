@@ -43,7 +43,7 @@ export const generatePDF = async (order: OrderBandaLargaPF | undefined) => {
             ? "PIX"
             : order.payment_method || "-";
 
-  const logo = await getBase64FromImageUrl("/assets/brisanet.svg");
+  const logo = await getBase64FromImageUrl("/assets/brisanet.png");
 
   const docDefinition = {
     pageMargins: [20, 40, 20, 40],

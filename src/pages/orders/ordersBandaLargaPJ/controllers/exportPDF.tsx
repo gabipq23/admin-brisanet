@@ -44,7 +44,7 @@ export const generatePDF = async (order: OrderBandaLargaPJ | undefined) => {
             ? "PIX"
             : order.payment_method || "-";
 
-  const logo = await getBase64FromImageUrl("/assets/brisanet.svg");
+  const logo = await getBase64FromImageUrl("/assets/brisanet.png");
 
   const docDefinition = {
     pageMargins: [20, 40, 20, 40],

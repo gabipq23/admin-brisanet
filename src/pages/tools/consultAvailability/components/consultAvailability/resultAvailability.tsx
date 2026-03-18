@@ -88,7 +88,7 @@ export default function ResultAvailability() {
                   <td className="text-center p-2 border-b border-gray-200">
                     <img
                       className="h-7 w-14 mx-auto"
-                      src="/assets/brisanet.svg"
+                      src="/assets/tim.svg"
                       alt="TIM"
                     />
                   </td>
