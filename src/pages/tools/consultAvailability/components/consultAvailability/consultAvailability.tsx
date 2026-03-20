@@ -59,8 +59,8 @@ export default function ConsultAvailability() {
           theme={{
             components: {
               Input: {
-                activeBorderColor: "#ff4800",
-                hoverBorderColor: "#ff4800",
+                activeBorderColor: "#660099",
+                hoverBorderColor: "#660099",
               },
             },
           }}
@@ -101,7 +101,7 @@ export default function ConsultAvailability() {
                   htmlType="submit"
                   loading={isLoading}
                   style={{
-                    backgroundColor: "#ff4800",
+                    backgroundColor: "#660099",
                     color: "white",
                     borderColor: "#000000",
                     borderTopLeftRadius: 0,
