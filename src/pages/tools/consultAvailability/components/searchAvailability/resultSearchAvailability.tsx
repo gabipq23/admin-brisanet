@@ -158,7 +158,7 @@ export default function ResultSearchAvailability() {
               theme={{
                 components: {
                   Button: {
-                    colorBorder: "#660099",
+                    colorBorder: "#ff4800",
                     colorText: "#fff",
                     colorPrimaryHover: "#fff",
                     colorPrimaryBorderHover: "#cb1ef5",
@@ -174,8 +174,8 @@ export default function ResultSearchAvailability() {
                 onClick={handleExport}
                 disabled={!searchData?.dados || searchData.dados.length === 0}
                 style={{
-                  backgroundColor: "#660099",
-                  borderColor: "#660099",
+                  backgroundColor: "#ff4800",
+                  borderColor: "#ff4800",
                 }}
               >
                 {isExporting ? "Exportando..." : `Exportar em .xlsx`}
@@ -188,8 +188,8 @@ export default function ResultSearchAvailability() {
                 onClick={handleExportCSV}
                 disabled={!searchData?.dados || searchData.dados.length === 0}
                 style={{
-                  backgroundColor: "#660099",
-                  borderColor: "#660099",
+                  backgroundColor: "#ff4800",
+                  borderColor: "#ff4800",
                 }}
               >
                 {isExportingCSV ? "Exportando..." : `Exportar em .csv`}
@@ -202,8 +202,8 @@ export default function ResultSearchAvailability() {
                 onClick={handleExportTXT}
                 disabled={!searchData?.dados || searchData.dados.length === 0}
                 style={{
-                  backgroundColor: "#660099",
-                  borderColor: "#660099",
+                  backgroundColor: "#ff4800",
+                  borderColor: "#ff4800",
                 }}
               >
                 {isExportingTXT ? "Exportando..." : `Exportar em .txt`}
@@ -215,15 +215,15 @@ export default function ResultSearchAvailability() {
                 theme={{
                   components: {
                     Checkbox: {
-                      colorPrimary: "#660099",
-                      colorPrimaryHover: "#660099",
+                      colorPrimary: "#ff4800",
+                      colorPrimaryHover: "#ff4800",
                       borderRadius: 4,
                       controlInteractiveSize: 18,
                       lineWidth: 2,
                     },
                     Button: {
-                      colorBorder: "#660099",
-                      colorText: "#660099",
+                      colorBorder: "#ff4800",
+                      colorText: "#ff4800",
                       colorPrimaryHover: "#cb1ef5",
                       colorPrimaryBorderHover: "#cb1ef5",
                     },
@@ -278,8 +278,8 @@ export default function ResultSearchAvailability() {
               theme={{
                 components: {
                   Button: {
-                    colorBorder: "#660099",
-                    colorText: "#660099",
+                    colorBorder: "#ff4800",
+                    colorText: "#ff4800",
                     colorPrimaryHover: "#cb1ef5",
                     colorPrimaryBorderHover: "#cb1ef5",
                   },
@@ -307,15 +307,15 @@ export default function ResultSearchAvailability() {
           locale={customLocale}
           theme={{
             token: {
-              colorPrimary: "#660099",
+              colorPrimary: "#ff4800",
               colorPrimaryHover: "#833baa",
-              colorLink: "#660099",
+              colorLink: "#ff4800",
               colorPrimaryBg: "transparent",
             },
             components: {
               Checkbox: {
-                colorPrimary: "#660099",
-                colorPrimaryHover: "#660099",
+                colorPrimary: "#ff4800",
+                colorPrimaryHover: "#ff4800",
                 borderRadius: 4,
                 controlInteractiveSize: 18,
                 lineWidth: 2,
