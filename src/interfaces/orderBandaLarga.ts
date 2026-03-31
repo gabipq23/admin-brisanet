@@ -50,6 +50,8 @@ export interface PlanSelectedExtra {
   input_type: string;
   description: string;
   options: PlanExtraOption[];
+  bonus?: PlanExtraBonus;
+  price: number;
 }
 
 type TelecomLineAction = "new_number" | "port_in_to_vivo" | "keep_vivo_number";
@@ -174,7 +176,6 @@ export interface OrderBandaLarga {
   service?: string | null;
   created_at: string;
   updated_at: string;
-  // Campos legados (compatibilidade)
   credito?: number | string;
   cep_unico?: number;
   encontrado_via_range?: number;

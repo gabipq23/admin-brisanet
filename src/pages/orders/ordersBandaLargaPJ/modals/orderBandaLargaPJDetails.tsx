@@ -240,7 +240,7 @@ export function OrderBandaLargaPJDetailsModal({
           name: selectedPlan.plan_name || selectedPlan.name,
           speed: selectedPlan.plan_speed || selectedPlan.speed,
           value: selectedPlan.plan_price_to || selectedPlan.price,
-          original_value: selectedPlan.original_value || selectedPlan.original_price || selectedPlan.original_value,
+          original_value: selectedPlan.price_summary?.plan_price || selectedPlan.original_price || selectedPlan.original_value,
         };
         formattedData.itens = [
           {
@@ -254,7 +254,6 @@ export function OrderBandaLargaPJDetailsModal({
         ];
         let extras_price = 0;
         (selected_extras as import("@/interfaces/orderBandaLarga").PlanSelectedExtra[]).forEach((extra) => {
-          // Soma price de cada option selecionada
           if (Array.isArray(extra.options)) {
             (extra.options as import("@/interfaces/orderBandaLarga").PlanExtraOption[]).forEach((opt) => {
               if (typeof opt.price === 'number') extras_price += opt.price;
@@ -267,7 +266,7 @@ export function OrderBandaLargaPJDetailsModal({
         if (selectedPlan.pricing && selectedPlan.pricing.base_monthly && typeof selectedPlan.pricing.base_monthly.current_price === 'number') {
           original_price = selectedPlan.pricing.base_monthly.current_price;
         } else {
-          original_price = selectedPlan.original_value || selectedPlan.original_price || selectedPlan.price || 0;
+          original_price = selectedPlan.price_summary?.plan_price || selectedPlan.original_price || selectedPlan.price || 0;
         }
         const total_monthly = original_price + extras_price;
 
