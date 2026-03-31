@@ -42,7 +42,7 @@ export const useAllTableColumns = (updateProductBL: (payload: { id: number; valu
                 <ConfigProvider
                     theme={{
                         components: {
-                            Switch: { colorPrimary: "#0026d9", colorPrimaryHover: "#550088" },
+                            Switch: { colorPrimary: "#ff4800", colorPrimaryHover: "#550088" },
                         },
                     }}
                 >
