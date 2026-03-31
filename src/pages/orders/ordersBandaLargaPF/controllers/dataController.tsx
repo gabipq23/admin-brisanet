@@ -1,10 +1,10 @@
-import { OrderBandaLargaPFResponse } from "@/interfaces/bandaLargaPF";
+import { OrderBandaLargaResponse } from "@/interfaces/orderBandaLarga";
 import { BandaLargaService } from "@/services/bandaLarga";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
 
-export function useAllOrdersController() {
+export function useAllOrdersController(setSelectedBLOrder?: (order: any) => void) {
   const bandaLargaService = new BandaLargaService();
   const queryClient = useQueryClient();
   const params = new URLSearchParams(window.location.search);
@@ -16,10 +16,11 @@ export function useAllOrdersController() {
   const closeModal = () => setIsModalOpen(false);
 
   const { data: ordersBandaLarga, isLoading } =
-    useQuery<OrderBandaLargaPFResponse>({
+    useQuery<OrderBandaLargaResponse>({
       refetchOnWindowFocus: false,
       queryKey: [
         "ordersBandaLargaPF",
+        "PF",
         filters.page,
         filters.per_page,
         filters.data_to,
@@ -35,7 +36,7 @@ export function useAllOrdersController() {
         filters.order_number
 
       ],
-      queryFn: async (): Promise<OrderBandaLargaPFResponse> => {
+      queryFn: async (): Promise<OrderBandaLargaResponse> => {
         const response = await bandaLargaService.allBandaLargaFiltered({
           page: filters.page,
           per_page: filters.per_page,
@@ -57,15 +58,33 @@ export function useAllOrdersController() {
       },
     });
 
+  const orderBandaLargaPF = ordersBandaLarga?.orders?.filter(
+    (order) =>
+      // order.company === "BRISANET" &&
+      // order.category === "Banda Larga" &&
+      order.client_type === "PF"
+    // &&
+    // order.landing_page === "banda-larga"
+    // ainda teria que entra aqui o business_partner
+    // mas o ideal é ja mandar eles filtrados na query
+
+  );
+
   const { mutate: updateBandaLargaOrder, isPending: isUpdatePurchaseFetching } =
     useMutation({
       mutationFn: async ({ id, data }: { id: number; data: any }) =>
         bandaLargaService.updateBandaLargaOrderInfo(id, data),
       onMutate: async () =>
         await queryClient.cancelQueries({ queryKey: ["ordersBandaLargaPF"] }),
-      onSuccess: () => {
+      onSuccess: (variables) => {
         toast.success("Pedido alterado com sucesso!");
         queryClient.invalidateQueries({ queryKey: ["ordersBandaLargaPF"] });
+
+        if (setSelectedBLOrder && variables?.data) {
+          setSelectedBLOrder((prev: any) =>
+            prev && prev.id === variables.id ? { ...prev, ...variables.data } : prev
+          );
+        }
       },
       onError: (error) => {
         toast.error("Houve um erro ao alterar o pedido. Tente novamente");
@@ -110,17 +129,6 @@ export function useAllOrdersController() {
       console.error(error.message);
     },
   });
-
-  const orderBandaLargaPF = ordersBandaLarga?.orders?.filter(
-    (order) =>
-      // order.company === "BRISANET" &&
-      // order.category === "Banda Larga" &&
-      order.client_type === "PF"
-    // &&
-    // order.landing_page === "banda-larga"
-    // ainda teria que entra aqui o business_partner
-    // mas o ideal é ja mandar eles filtrados na query
-  );
 
   const updateDataIdCRMAndConsultorResponsavel = (
     id: string | undefined,

@@ -228,7 +228,7 @@ export function useEvolutionFilterController({
         <ConfigProvider
           theme={{
             components: {
-              Switch: { colorPrimary: "#ff4800", colorPrimaryHover: "#550088" },
+              Switch: { colorPrimary: "#ff4800", colorPrimaryHover: "#ff4800" },
             },
           }}
         >
@@ -269,7 +269,7 @@ export function useEvolutionFilterController({
                 colorBorder: "#ff4800",
                 colorText: "#ff4800",
                 colorPrimary: "#ff4800",
-                colorPrimaryHover: "#883fa2",
+                colorPrimaryHover: "#ff4800",
               },
             },
           }}

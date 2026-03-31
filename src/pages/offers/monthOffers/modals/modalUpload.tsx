@@ -99,11 +99,11 @@ export function ModalUpload({
                 colorBorder: "#ff4800",
                 colorText: "#ff4800",
                 colorPrimary: "#ff4800",
-                colorPrimaryHover: "#883fa2",
+                colorPrimaryHover: "#ff4800",
               },
               Upload: {
                 colorPrimary: "#ff4800",
-                colorPrimaryHover: "#883fa2",
+                colorPrimaryHover: "#ff4800",
               },
             },
           }}

@@ -14,9 +14,9 @@ import { DatePicker } from "antd";
 import { PatternFormat, PatternFormatProps } from "react-number-format";
 import dayjs from "dayjs";
 import { handleExportXLSX } from "../controllers/exportXLSX";
-import { BandaLargaFilters } from "@/interfaces/bandaLargaPF";
 import { defaultOutlineButtonClass } from "@/utils/buttonStyles";
 import { customLocale } from "@/utils/customLocale";
+import { BandaLargaFilters } from "@/interfaces/orderBandaLarga";
 
 interface FiltroPedidosFormProps {
   control: Control<BandaLargaFilters>;
@@ -76,20 +76,20 @@ export function FiltroOrdersBandaLargaPFForm({
             theme={{
               components: {
                 Input: {
-                  hoverBorderColor: "#ff4800",
-                  activeBorderColor: "#ff4800",
+                  hoverBorderColor: "#0026d9",
+                  activeBorderColor: "#0026d9",
                   activeShadow: "none",
                 },
                 Select: {
-                  hoverBorderColor: "#ff4800",
-                  activeBorderColor: "#ff4800",
+                  hoverBorderColor: "#0026d9",
+                  activeBorderColor: "#0026d9",
                   activeOutlineColor: "none",
                 },
                 DatePicker: {
-                  hoverBorderColor: "#ff4800",
-                  activeBorderColor: "#ff4800",
-                  colorPrimaryBorder: "#ff4800",
-                  colorPrimary: "#ff4800",
+                  hoverBorderColor: "#0026d9",
+                  activeBorderColor: "#0026d9",
+                  colorPrimaryBorder: "#0026d9",
+                  colorPrimary: "#0026d9",
                 },
               },
             }}
@@ -303,17 +303,17 @@ export function FiltroOrdersBandaLargaPFForm({
           theme={{
             components: {
               Checkbox: {
-                colorPrimary: "#ff4800",
-                colorPrimaryHover: "#ff4800",
+                colorPrimary: "#0026d9",
+                colorPrimaryHover: "#0026d9",
                 borderRadius: 4,
                 controlInteractiveSize: 18,
                 lineWidth: 2,
               },
               Button: {
-                colorBorder: "#ff4800",
-                colorText: "#ff4800",
-                colorPrimaryHover: "#ff4800",
-                colorPrimaryBorderHover: "#ff4800",
+                colorBorder: "#0026d9",
+                colorText: "#0026d9",
+                colorPrimaryHover: "#0026d9",
+                colorPrimaryBorderHover: "#0026d9",
               },
             },
           }}

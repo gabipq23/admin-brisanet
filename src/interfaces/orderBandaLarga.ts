@@ -1,11 +1,11 @@
-export interface OrderBandaLargaPFResponse {
+export interface OrderBandaLargaResponse {
   success: boolean;
-  orders: OrderBandaLargaPF[];
+  orders: OrderBandaLarga[];
   total: number;
   page: number;
   perPage: number;
   totalPages: number;
-  pedidos?: OrderBandaLargaPF[];
+  pedidos?: OrderBandaLarga[];
   status_pos_venda_enum?: string[];
 }
 
@@ -27,9 +27,34 @@ export interface OperatorsAvailability {
   [operatorName: string]: OperatorAvailabilityItem | undefined;
 }
 
+export interface PlanExtraBonus {
+  type: string;
+  price: number;
+  speed: number;
+  description: string;
+}
+
+export interface PlanExtraOption {
+  id: string;
+  label: string;
+  price: number;
+  description: string;
+  bonus?: PlanExtraBonus;
+  speed?: number;
+  type?: string;
+}
+
+export interface PlanSelectedExtra {
+  id: string;
+  label: string;
+  input_type: string;
+  description: string;
+  options: PlanExtraOption[];
+}
+
 type TelecomLineAction = "new_number" | "port_in_to_vivo" | "keep_vivo_number";
 
-export interface OrderBandaLargaPF {
+export interface OrderBandaLarga {
   id: number;
   company?: string;
   order_number?: number | null;
@@ -57,12 +82,14 @@ export interface OrderBandaLargaPF {
   cnpj?: string | null;
   company_legal_name?: string | null;
   plan: {
-    name: string;
-    value?: number;
-    price?: number;
-    id?: string;
+    id?: number | string;
+    name?: string;
     speed?: string;
+    value?: number;
+    original_value?: number;
+    selected_extras?: PlanSelectedExtra[];
   };
+  selected_extras?: PlanSelectedExtra[];
   due_day: string | number;
   terms_accepted: boolean;
   accept_offers: boolean;
@@ -244,7 +271,12 @@ export interface OrderBandaLargaPF {
   category: string;
   landing_page: string;
   address_reference_point: string;
-  price_summary: Record<string, unknown> | null;
+  price_summary?: {
+    plan_price?: number;
+    original_price?: number;
+    extras_price?: number;
+    total_monthly?: number;
+  } | null;
   line_action?: TelecomLineAction;
   line_number_informed?: string | null;
   line_number?: string | null;

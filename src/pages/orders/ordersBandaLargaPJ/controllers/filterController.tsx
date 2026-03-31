@@ -4,16 +4,17 @@ import { useForm } from "react-hook-form";
 import { TableColumnsType } from "antd";
 import { useStyle } from "@/style/tableStyle";
 import { useAllTableColumns } from "../components/tableColumns";
-import { BandaLargaFilters, OrderBandaLargaPJ } from "@/interfaces/bandaLargaPJ";
+import { BandaLargaFilters, OrderBandaLarga } from "@/interfaces/orderBandaLarga";
 
 export function getFiltersFromURL(): BandaLargaFilters {
   const params = new URLSearchParams(window.location.search);
 
-
   const page = parseInt(params.get("page") || "1", 10);
   const per_page = parseInt(params.get("per_page") || "20", 10);
-  const data_to = params.get("data_ate") || undefined;
-  const data_from = params.get("data_de") || undefined;
+  const data_to =
+    params.get("data_to") || params.get("data_ate") || undefined;
+  const data_from =
+    params.get("data_from") || params.get("data_de") || undefined;
   const status = params.get("status") || undefined;
   const availability = params.get("availability");
   let availabilityBool: boolean | undefined = undefined;
@@ -31,7 +32,6 @@ export function getFiltersFromURL(): BandaLargaFilters {
     page, per_page, data_to, data_from, status, availability: availabilityBool, phone, cpf, cnpj, after_sales_status, order, sort, order_number,
   };
 }
-
 
 export function useAllOrdersFilterController() {
   const navigate = useNavigate();
@@ -65,11 +65,10 @@ export function useAllOrdersFilterController() {
 
   const onSubmit = (data: BandaLargaFilters) => {
     const params = new URLSearchParams();
-
-    if (data.page) params.set("page", String(data.page));
+    params.set("page", "1");
     if (data.per_page) params.set("per_page", String(data.per_page));
-    if (data.data_to) params.set("data_ate", data.data_to);
-    if (data.data_from) params.set("data_de", data.data_from);
+    if (data.data_to) params.set("data_to", data.data_to);
+    if (data.data_from) params.set("data_from", data.data_from);
     if (data.status) params.set("status", data.status);
     if (data.phone) {
       const phoneSemMascara = data.phone.replace(/\D/g, "");
@@ -103,7 +102,7 @@ export function useAllOrdersFilterController() {
 
   const { styles } = useStyle();
 
-  const allTableColumns: TableColumnsType<OrderBandaLargaPJ> = useAllTableColumns({
+  const allTableColumns: TableColumnsType<OrderBandaLarga> = useAllTableColumns({
     setSelectedAvatar,
     setIsModalAvatarOpen,
   });
