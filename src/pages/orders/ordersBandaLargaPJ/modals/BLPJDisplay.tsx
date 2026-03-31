@@ -281,42 +281,6 @@ export function OrderBandaLargaPJDisplay({
           </div>
         </div>
 
-        {/* Detalhes adicionais em lista */}
-        <div className="mt-4 bg-white rounded-md p-2">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-            <DisplayGenerator
-              title="Escolha:"
-              value={
-                localData.line_action
-                  ? {
-                    new_number: "Novo Número",
-                    port_in_to_vivo: "Portabilidade para Vivo",
-                    keep_vivo_number: "Manter Número Vivo",
-                  }[localData.line_action] || "-"
-                  : "-"
-              }
-            />
-            <DisplayGenerator
-              title="Número Informado:"
-              value={
-                localData.line_number_informed
-                  ? formatPhoneNumber(localData.line_number_informed)
-                  : "-"
-              }
-            />
-            <DisplayGenerator
-              title="eSIM:"
-              value={
-                localData.wants_esim === true
-                  ? "Sim"
-                  : localData.wants_esim === false
-                    ? "Não"
-                    : "-"
-              }
-            />
-          </div>
-        </div>
-
       </div>
 
 
@@ -795,7 +759,7 @@ export function OrderBandaLargaPJDisplay({
 
               colorPrimary: "#ff4800",
 
-              colorPrimaryHover: "#883fa2",
+              colorPrimaryHover: "#ff4800",
             },
           },
         }}
