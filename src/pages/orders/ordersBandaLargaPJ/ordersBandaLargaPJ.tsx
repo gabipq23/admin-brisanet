@@ -1,33 +1,17 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
 import { ConfigProvider, Modal, Table } from "antd";
 import { customLocale } from "@/utils/customLocale";
 import { useAllOrdersController } from "./controllers/dataController";
 import { useAllOrdersFilterController } from "./controllers/filterController";
 import { useNavigate } from "react-router-dom";
 import { FiltroOrdersBandaLargaPJForm } from "./components/filter";
-import { OrderBandaLargaPJ } from "@/interfaces/bandaLargaPJ";
+import { OrderBandaLarga } from "@/interfaces/orderBandaLarga";
 import { TableProps } from "antd/lib";
 import { useState } from "react";
 import { OrderBandaLargaPJDetailsModal } from "./modals/orderBandaLargaPJDetails";
+import { useProductBLController } from "@/pages/products/productBandaLarga/controllers/dataController";
 export default function OrdersBandaLargaPJ() {
   const queryClient = new QueryClient();
-  const {
-    ordersBandaLarga,
-
-    showModal,
-    closeModal,
-    isModalOpen,
-    isLoading,
-    orderBandaLargaPJ,
-    updateBandaLargaOrder,
-    removeBandaLargaOrder,
-    isRemoveBandaLargaOrderFetching,
-    changeBandaLargaOrderStatus,
-    updateDataIdCRMAndConsultorResponsavel
-  } = useAllOrdersController();
-  const navigate = useNavigate();
-  const planBLPJ: any[] = [];
   const {
     control,
     onSubmit,
@@ -46,14 +30,30 @@ export default function OrdersBandaLargaPJ() {
     setIsModalAvatarOpen,
     selectedAvatar,
   } = useAllOrdersFilterController();
+  const {
+    ordersBandaLarga,
+    showModal,
+    closeModal,
+    isModalOpen,
+    isLoading,
+    orderBandaLargaPJ,
+    updateBandaLargaOrder,
+    removeBandaLargaOrder,
+    isRemoveBandaLargaOrderFetching,
+    changeBandaLargaOrderStatus,
+    updateDataIdCRMAndConsultorResponsavel
+  } = useAllOrdersController(setSelectedBLOrder);
+  const navigate = useNavigate();
+  const { productsBL } = useProductBLController();
 
-  const totalItems = 0;
+  const totalItems =
+    ordersBandaLarga?.total ?? orderBandaLargaPJ?.length ?? 0;
 
-  const rowClassName = (record: OrderBandaLargaPJ) => {
+  const rowClassName = (record: OrderBandaLarga) => {
     const hasAvaiability = record?.availability;
     const isCoveredByRange = record?.found_via_range;
     const hasUnicCep = record?.single_zip_code;
-    if (record?.status === "FECHADO") {
+    if (record?.status === "FECHADO" || record?.status === "fechado") {
       if (
         hasAvaiability === false ||
         hasAvaiability === null ||
@@ -76,7 +76,6 @@ export default function OrdersBandaLargaPJ() {
       setSelectedRowKeys(newSelectedRowKeys);
     },
   };
-  console.log(orderBandaLargaPJ)
   return (
     <>
       <QueryClientProvider client={queryClient}>
@@ -95,7 +94,7 @@ export default function OrdersBandaLargaPJ() {
                 onClear={clearFilters}
                 statusOptions={ordersBandaLarga?.status_pos_venda_enum}
                 orderBandaLargaPJ={orderBandaLargaPJ}
-                planBLPJStock={planBLPJ}
+                planBLPJStock={productsBL}
                 allColumnOptions={allColumnOptions}
                 visibleColumns={visibleColumns}
                 handleColumnsChange={handleColumnsChange}
@@ -107,15 +106,15 @@ export default function OrdersBandaLargaPJ() {
             locale={customLocale}
             theme={{
               token: {
-                colorPrimary: "#ff4800",
-                colorPrimaryHover: "#ff4800",
-                colorLink: "#ff4800",
+                colorPrimary: "#0026d9",
+                colorPrimaryHover: "#0026d9",
+                colorLink: "#0026d9",
                 colorPrimaryBg: "transparent",
               },
               components: {
                 Checkbox: {
-                  colorPrimary: "#ff4800",
-                  colorPrimaryHover: "#ff4800",
+                  colorPrimary: "#0026d9",
+                  colorPrimaryHover: "#0026d9",
                   borderRadius: 4,
                   controlInteractiveSize: 18,
                   lineWidth: 2,
@@ -146,12 +145,12 @@ export default function OrdersBandaLargaPJ() {
                   pageSize: pageSize ? Number(pageSize) : 50,
                   total: totalItems,
                   showSizeChanger: true,
-                  pageSizeOptions: ["50", "100", "200", "500"],
+                  pageSizeOptions: ["20", "50", "100", "200", "500"],
                   showLessItems: true,
                   onChange: (page, pageSize) => {
                     const params = new URLSearchParams(window.location.search);
                     params.set("page", page.toString());
-                    params.set("limit", pageSize.toString());
+                    params.set("per_page", pageSize.toString());
                     navigate(`?${params.toString()}`);
                   },
                   showTotal: (total) => `Total de ${total} pedidos`,
@@ -163,7 +162,7 @@ export default function OrdersBandaLargaPJ() {
           {/* Modal */}
           <OrderBandaLargaPJDetailsModal
             statusOptions={ordersBandaLarga?.status_pos_venda_enum}
-            planBLPJStock={planBLPJ}
+            planBLPJStock={productsBL}
             updateOrderData={updateBandaLargaOrder}
             isModalOpen={isModalOpen}
             closeModal={closeModal}

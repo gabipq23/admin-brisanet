@@ -42,7 +42,6 @@ export default function ConfirmDeleteModal({
         </Button>,
         <Button
           key="confirm"
-
           danger={isDanger}
           loading={isLoading}
           onClick={handleConfirm}

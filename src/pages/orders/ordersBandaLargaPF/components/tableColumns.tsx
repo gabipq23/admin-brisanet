@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { formatBrowserDisplay, formatOSDisplay } from "@/utils/formatClientEnvironment";
 import { formatPhoneNumber } from "@/utils/formatPhoneNumber";
-import { OrderBandaLargaPF } from "@/interfaces/bandaLargaPF";
+import { OrderBandaLarga } from "@/interfaces/orderBandaLarga";
 import { useNavigate } from "react-router-dom";
 import { getFiltersFromURL } from "../controllers/filterController";
 export const useAllTableColumns = ({
@@ -27,7 +27,7 @@ export const useAllTableColumns = ({
 }: {
     setSelectedAvatar: Dispatch<SetStateAction<string | null>>;
     setIsModalAvatarOpen: Dispatch<SetStateAction<boolean>>;
-}): TableColumnsType<OrderBandaLargaPF> => {
+}): TableColumnsType<OrderBandaLarga> => {
     const navigate = useNavigate();
     const filters = getFiltersFromURL();
 
@@ -194,11 +194,11 @@ export const useAllTableColumns = ({
         },
         {
             title: "Disponibilidade",
-            dataIndex: "availability",
+            dataIndex: ["operators_availability", "tim"],
             width: 120,
-            render: (availability, record) =>
-                availability ? (
-                    record.encontrado_via_range ? (
+            render: (timAvailability) =>
+                timAvailability?.availability ? (
+                    timAvailability?.encontrado_via_range ? (
                         <div className="flex items-center justify-center ">
                             <Tooltip
                                 title="Disponível (via range numérico)"
@@ -503,7 +503,7 @@ export const useAllTableColumns = ({
         {
             title: "Telefone",
             dataIndex: "phone",
-            width: 150,
+            width: 180,
             render: (_, record) => {
                 if (!record.phone) return "-";
 
@@ -830,7 +830,6 @@ export const useAllTableColumns = ({
         //                 ? "Não"
         //                 : "-",
         // },
-
         {
             title: "CEP",
             dataIndex: "zip_code",

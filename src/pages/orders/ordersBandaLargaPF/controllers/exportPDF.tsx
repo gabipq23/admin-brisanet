@@ -1,4 +1,5 @@
-import { OrderBandaLargaPF } from "@/interfaces/bandaLargaPF";
+
+import { OrderBandaLarga } from "@/interfaces/orderBandaLarga";
 import { formatBRL } from "@/utils/formatBRL";
 import { formatCEP } from "@/utils/formatCEP";
 import { formatCPF } from "@/utils/formatCPF";
@@ -29,7 +30,7 @@ const getBase64FromImageUrl = (url: string): Promise<string> => {
   });
 };
 
-export const generatePDF = async (order: OrderBandaLargaPF | undefined) => {
+export const generatePDF = async (order: OrderBandaLarga | undefined) => {
   if (!order) return;
 
   const paymentMethodLabel =
@@ -43,7 +44,7 @@ export const generatePDF = async (order: OrderBandaLargaPF | undefined) => {
             ? "PIX"
             : order.payment_method || "-";
 
-  const logo = await getBase64FromImageUrl("/assets/brisanet.png");
+  const logo = await getBase64FromImageUrl("/assets/tim.svg");
 
   const docDefinition = {
     pageMargins: [20, 40, 20, 40],
@@ -89,7 +90,7 @@ export const generatePDF = async (order: OrderBandaLargaPF | undefined) => {
               { text: order.plan?.name || "-", style: "tableBody" },
 
               {
-                text: formatBRL(order.plan?.price ?? order.plan?.value ?? 0),
+                text: formatBRL(order.price_summary?.plan_price ?? order.plan?.value ?? 0),
                 style: "tableBody",
               },
             ],
@@ -195,7 +196,7 @@ export const generatePDF = async (order: OrderBandaLargaPF | undefined) => {
         columns: [
           { text: "Valor Mensal do Plano", style: "content" },
           {
-            text: formatBRL(order.plan?.price ?? order.plan?.value ?? 0),
+            text: formatBRL(order.price_summary?.plan_price ?? order.plan?.value ?? 0),
             style: "content",
             alignment: "right",
           },
