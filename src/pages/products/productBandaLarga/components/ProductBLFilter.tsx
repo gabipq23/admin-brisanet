@@ -10,6 +10,7 @@ import { defaultOutlineButtonClass } from "@/utils/buttonStyles";
 import CreateProductBL from "../modals/CreateProductBL";
 import type { ProductBLFiltersFormValues } from "../controllers/filters";
 import type { CreatedProductResponse } from "@/services/products";
+import { UF_OPTIONS } from "@/utils/ufOptions";
 
 type ProductCreatePayload = Record<string, unknown>;
 type UploadConditionsPayload = { id: number; files: File[] };
@@ -119,7 +120,22 @@ export function FilterProductBL({
                                 />
                             )}
                         />
-
+  <Controller
+                            control={control}
+                            name="uf"
+                            render={({ field }) => (
+                                <Select
+                                    style={{
+                                        width: "200px",
+                                    }}
+                                    placeholder="UF"
+                                    value={field.value || undefined}
+                                    onChange={field.onChange}
+                                    options={UF_OPTIONS}
+                                    allowClear
+                                />
+                            )}
+                        />
                         {/* <Controller
               control={control}
               name="minPrice"
