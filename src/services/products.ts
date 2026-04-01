@@ -24,6 +24,7 @@ export class ProductsService {
     order,
     sort,
     client_type,
+    uf,
   }: {
     page?: string | number;
     per_page?: string | number;
@@ -35,6 +36,7 @@ export class ProductsService {
     order?: string;
     sort?: string;
     client_type?: string;
+    uf?: string;
   }): Promise<ProductsResponse> {
     const res = await apiPurchase.get(`/telecom-products`, {
       params: {
@@ -48,10 +50,16 @@ export class ProductsService {
         order,
         sort,
         client_type,
+        uf,
       },
     });
 
     return res.data;
+  }
+
+  async getProductById(id: number): Promise<IProduct> {
+    const response = await apiPurchase.get(`/telecom-products/${id}`);
+    return (response.data?.product ?? response.data) as IProduct;
   }
 
   async createProduct(
