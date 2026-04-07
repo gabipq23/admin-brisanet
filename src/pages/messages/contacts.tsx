@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useContactsController } from "./controllers/dataController";
 import { useContactFilterController } from "./controllers/filterController";
@@ -40,9 +41,14 @@ function Contacts() {
     styles,
   } = useContactFilterController({ totalContacts });
 
+
+
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+
   const rowSelection: TableProps<IContact>["rowSelection"] = {
-    onChange: (selectedRowKeys: React.Key[], selectedRows: IContact[]) => {
-      console.log(selectedRowKeys);
+    selectedRowKeys,
+    onChange: (newSelectedRowKeys: React.Key[], selectedRows: IContact[]) => {
+      setSelectedRowKeys(newSelectedRowKeys);
       setRemoveContactIds(selectedRows.map((row) => row.id));
     },
     getCheckboxProps: (record: IContact) => ({
