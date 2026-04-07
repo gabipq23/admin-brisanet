@@ -2,11 +2,11 @@ import { OrderBandaLarga } from "@/interfaces/orderBandaLarga";
 import { Tooltip } from "antd";
 
 export const AvailabilityStatus = ({ localData }: { localData: OrderBandaLarga }) => {
-    const timAvailability = localData.operators_availability?.tim;
+    const availability = localData.operators_availability?.brisanet;
 
     if (
-        timAvailability?.available === null ||
-        timAvailability?.available === undefined
+        availability?.available === null ||
+        availability?.available === undefined
     ) {
         return (
             <div className="flex flex-col items-center mt-2">
@@ -15,8 +15,8 @@ export const AvailabilityStatus = ({ localData }: { localData: OrderBandaLarga }
         );
     }
 
-    if (timAvailability.available) {
-        if (timAvailability.found_via_range) {
+    if (availability.available) {
+        if (availability.found_via_range) {
             return (
                 <div className="flex flex-col items-center mt-2">
                     <div className="flex items-center justify-center mb-2">
@@ -29,8 +29,8 @@ export const AvailabilityStatus = ({ localData }: { localData: OrderBandaLarga }
                         </Tooltip>
                     </div>
                     <div className="text-center text-[11px] text-neutral-600 bg-yellow-50 px-2 py-1 rounded">
-                        <strong>Range numérico:</strong> {timAvailability.range_min} -{" "}
-                        {timAvailability.range_max}
+                        <strong>Range numérico:</strong> {availability.range_min} -{" "}
+                        {availability.range_max}
                     </div>
                 </div>
             );
