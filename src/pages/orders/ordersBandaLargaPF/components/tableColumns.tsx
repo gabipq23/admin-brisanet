@@ -896,13 +896,7 @@ export const useAllTableColumns = ({
             width: 80,
             render: (addressnumber) => (addressnumber ? addressnumber : "-"),
         },
-        {
-            title: "Complemento",
-            dataIndex: "address_complement",
-            width: 120,
-            render: (address_complement) =>
-                address_complement ? address_complement : "-",
-        },
+
 
         {
             title: "Bairro",
