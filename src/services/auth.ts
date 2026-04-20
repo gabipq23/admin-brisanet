@@ -27,7 +27,7 @@ interface ILoginResponse {
 class AuthService {
   async login({ email, password }: ILoginRequest): Promise<ILoginResponse> {
     const response = await apiPurchase.post<ILoginApiResponse>(
-      "/brisanet/auth/login",
+      "/telecom/brisanet/auth/login",
       {
         email,
         password,
@@ -71,7 +71,7 @@ class AuthService {
   }
 
   async logout() {
-    await apiPurchase.post("/brisanet/auth/logout");
+    await apiPurchase.post("/telecom/brisanet/auth/logout");
     localStorage.removeItem("brisanet@user");
   }
 }

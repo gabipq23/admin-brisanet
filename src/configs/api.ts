@@ -36,7 +36,7 @@ apiPurchase.interceptors.response.use(
   (error) => {
     const status = error?.response?.status;
     const requestUrl = String(error?.config?.url ?? "");
-    const isLoginRequest = requestUrl.includes("/brisanet/auth/login");
+    const isLoginRequest = requestUrl.includes("/telecom/brisanet/auth/login");
 
     if (status === 401 && !isLoginRequest) {
       forceLogoutAndRedirect();
