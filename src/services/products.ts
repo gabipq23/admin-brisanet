@@ -38,7 +38,7 @@ export class ProductsService {
     client_type?: string;
     uf?: string;
   }): Promise<ProductsResponse> {
-    const res = await apiPurchase.get(`/telecom/brisanet/products`, {
+    const res = await apiPurchase.get(`/telecom/products`, {
       params: {
         page,
         per_page,
@@ -58,7 +58,7 @@ export class ProductsService {
   }
 
   async getProductById(id: number): Promise<IProduct> {
-    const response = await apiPurchase.get(`/telecom/brisanet/products/${id}`);
+    const response = await apiPurchase.get(`/telecom/products/${id}`);
     return (response.data?.product ?? response.data) as IProduct;
   }
 
@@ -73,13 +73,9 @@ export class ProductsService {
         : undefined;
 
     try {
-      const response = await apiPurchase.post(
-        `/telecom/brisanet/products`,
-        data,
-        {
-          headers,
-        },
-      );
+      const response = await apiPurchase.post(`/telecom/products`, data, {
+        headers,
+      });
 
       const id = Number(response?.data?.product?.id);
       if (!Number.isFinite(id) || id <= 0) {
@@ -105,7 +101,7 @@ export class ProductsService {
 
     try {
       const response = await apiPurchase.post(
-        `/telecom/brisanet/products/${id}/conditions`,
+        `/telecom/products/${id}/conditions`,
         formData,
         {
           headers: {
@@ -134,7 +130,7 @@ export class ProductsService {
 
     try {
       const response = await apiPurchase.post(
-        `/telecom/brisanet/products/${id}/details`,
+        `/telecom/products/${id}/details`,
         formData,
         {
           headers: {
@@ -169,7 +165,7 @@ export class ProductsService {
 
     try {
       const response = await apiPurchase.post(
-        `/telecom/brisanet/products/${id}/extras-images`,
+        `/telecom/products/${id}/extras-images`,
         formData,
         {
           headers: {
@@ -197,13 +193,10 @@ export class ProductsService {
     id: number,
     data: Partial<IProduct> | Record<string, unknown>,
   ): Promise<unknown> {
-    const response = await apiPurchase.put(
-      `/telecom/brisanet/products/${id}`,
-      data,
-    );
+    const response = await apiPurchase.put(`/telecom/products/${id}`, data);
     return response.data;
   }
   async removeProduct(id: number) {
-    await apiPurchase.delete(`/telecom/brisanet/products/${id}`);
+    await apiPurchase.delete(`/telecom/products/${id}`);
   }
 }
