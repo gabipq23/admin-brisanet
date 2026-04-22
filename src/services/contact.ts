@@ -56,12 +56,12 @@ export class ContactService {
     id: number;
     status: "LIDA" | "RESPONDIDA";
   }) {
-    return apiPurchase.patch(`/messages/${id}/status`, {
+    return apiPurchase.patch(`/telecom/brisanet/messages/${id}/status`, {
       status: status,
     });
   }
 
   async removeContact(id: number) {
-    await apiPurchase.delete(`/messages/${id}`);
+    await apiPurchase.delete(`/telecom/brisanet/messages/${id}`);
   }
 }
