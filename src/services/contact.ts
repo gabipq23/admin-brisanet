@@ -30,7 +30,7 @@ export class ContactService {
     order?: string;
     status?: string;
   }): Promise<IContactResponse> {
-    const res = await apiPurchase.get(`/messages`, {
+    const res = await apiPurchase.get(`/telecom/brisanet/messages`, {
       params: {
         page,
         data_to,
