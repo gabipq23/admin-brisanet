@@ -18,7 +18,7 @@ export class OffersService {
     name?: string;
     per_page?: number;
   }): Promise<MonthOffersResponse> {
-    const res = await apiPurchase.get(`/brisanet/offers`, {
+    const res = await apiPurchase.get(`/telecom/brisanet/offers`, {
       params: {
         pagina: page,
         date_from: date_from,
@@ -36,17 +36,23 @@ export class OffersService {
     formData.append("file", file);
     formData.append("description", description);
 
-    const response = await apiPurchase.post(`/brisanet/offers`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
+    const response = await apiPurchase.post(
+      `/telecom/brisanet/offers`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       },
-    });
+    );
     return response.data;
   }
 
   // aguardando infos
   async downloadOfferFile(id: number, fileName: string): Promise<void> {
-    const response = await apiPurchase.get(`/brisanet/offers/${id}/download`);
+    const response = await apiPurchase.get(
+      `/telecom/brisanet/offers/${id}/download`,
+    );
     const downloadUrl = response.data.url || response.data;
 
     const link = document.createElement("a");
@@ -59,11 +65,14 @@ export class OffersService {
   }
 
   async updateOffers(id: number, data: UpdateMonthOfferData): Promise<unknown> {
-    const response = await apiPurchase.put(`/brisanet/offers/${id}`, data);
+    const response = await apiPurchase.put(
+      `/telecom/brisanet/offers/${id}`,
+      data,
+    );
     return response.data;
   }
 
   async removeOffers(id: number) {
-    await apiPurchase.delete(`/brisanet/offers/${id}`);
+    await apiPurchase.delete(`/telecom/brisanet/offers/${id}`);
   }
 }
