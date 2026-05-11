@@ -149,6 +149,14 @@ export function OrderBandaLargaPFDisplay({
               <DisplayGenerator
                 title="Numero da Conta:"
                 value={localData.bank_account_number || "-"}
+              /> <DisplayGenerator
+                title="Titular da Conta:"
+                value={localData.bank_account_holder_name || "-"}
+              />
+              <DisplayGenerator
+
+                title="CPF do Titular:"
+                value={formatCPF(localData.bank_account_holder_cpf || "") || "-"}
               />
             </div>
           </div>
